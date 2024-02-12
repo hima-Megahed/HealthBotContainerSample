@@ -1,4 +1,4 @@
-const defaultLocale = 'en-US';
+const defaultLocale = localStorage.getItem("selectedLanguage") || 'en-US';
 
 function requestChatBot(loc) {
     const params = new URLSearchParams(location.search);
@@ -150,7 +150,8 @@ function initBotConversation() {
         store: store,
         userID: user.id,
         username: user.name,
-        locale: user.locale
+        locale: user.locale,
+        webSpeechPonyfillFactory: window.WebChat.createBrowserWebSpeechPonyfillFactory()
     };
     startChat(user, webchatOptions);
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <!-- Add Azure Application Insights to your chat.
         Uncomment the following code snippet and replace
@@ -22,8 +23,35 @@
     <link href="stylesheets/style.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
+
 <body>
-<div id="webchat" role="main" watermark="false"></div>
-<script>chatRequested();</script>
+    <select id="languageDropdown" onchange="changeLanguage()">
+        <option value="en-US">English</option>
+        <option value="ar-SA">Arabic</option>
+    </select>
+    <div id="webchat" role="main" watermark="false"></div>
+    <script>
+        let selectElement = document.getElementById("languageDropdown");
+        let defaultValue = localStorage.getItem("selectedLanguage") || 'en-US';
+
+        if (defaultValue) {
+            // Iterate through the options to find a match
+            for (var i = 0; i < selectElement.options.length; i++) {
+                if (selectElement.options[i].value === defaultValue) {
+                    selectElement.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+
+        function changeLanguage() {
+            var selectedLanguage = document.getElementById("languageDropdown").value;
+            localStorage.setItem("selectedLanguage", selectedLanguage);
+            window.location.reload();
+        }
+
+        chatRequested();
+    </script>
 </body>
+
 </html>
